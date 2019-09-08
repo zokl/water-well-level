@@ -1,0 +1,40 @@
+#!/usr/local/bin/gnuplot
+
+#set title "Throughput on ppp0 and ppp1 interfaces (LTE-A, TO2, Uplink, TCP W64k)"
+#set datafile separator " "
+set xlabel "Timestamp"
+# set ylabel "Signal dB"
+# set timefmt "%s"
+#set xdata time
+#set format x "%H:%M:%S"
+#set format x "%.0f"
+#set format y "%.0f"
+#set xrange [ 0 : 25 ]
+#set yrange [ 0 : -115 ]
+
+set mxtics 5
+set mytics 5
+set style line 1 linetype 0 linewidth 1 lc rgb 'gray'
+set grid ls 1
+set grid mxtics mytics xtics ytics
+set key bottom right horizontal inside
+set key font ",12"
+set xtics font ", 10" 
+set ytics font ", 10" 
+
+
+
+plot \
+"voda.dat" using ($1):($2) with lines lt 1 lc rgb "blue" title "Hladina [cm]",\
+"voda_min.dat" using ($1):($2) with linespoint pointtype 3 pointsize 0.5 lt 10 lc rgb "red" title "Hladina MIN [cm]",\
+
+
+#"voda.dat" using ($1):($2) with linespoint pointtype 3 pointsize 0.5 lt 1 lc rgb "blue" title "Hladina [cm]",\
+#"voda.dat" using ($1):($2) smooth acsplines with linespoint pointtype 3 pointsize 0.5 lt 5 lc rgb "orange" title "Hladina [cm]",\
+
+set terminal postscript enhanced color  "Helvetica" 16
+set output 'voda.ps'
+
+# set terminal png size 1024,768
+# set out "aa.png"
+replot
